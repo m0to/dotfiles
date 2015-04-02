@@ -1,0 +1,19 @@
+{
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AngularJS (CoffeeScript)",
+		"Better CoffeeScript",
+		"CoffeeCompile",
+		"EditorConfig",
+		"Git",
+		"Package Control",
+		"Pretty JSON",
+		"Sass",
+		"Simple Print Function",
+		"SublimeLinter-coffee",
+		"Theme - Flatland"
+	]
+}
