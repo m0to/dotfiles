@@ -29,6 +29,8 @@ parse_svn_repository_root() {
 
 export PS1="\[\033[00m\]\u@\h\[\033[01;36m\] \W\[\033[31m\] \$(parse_git_branch)\$(parse_svn_branch) \[\033[00m\]$\[\033[00m\] "
 
+export EDITOR=/usr/local/bin/subl
+
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   source $(brew --prefix)/etc/bash_completion
 fi
