@@ -5,15 +5,21 @@
 	"installed_packages":
 	[
 		"AngularJS (CoffeeScript)",
+		"BeautifyRuby",
 		"Better CoffeeScript",
 		"CoffeeCompile",
 		"EditorConfig",
 		"Git",
+		"GitGutter",
 		"Package Control",
 		"Pretty JSON",
 		"Sass",
 		"Simple Print Function",
 		"SublimeLinter-coffee",
 		"Theme - Flatland"
+	],
+	"repositories":
+	[
+		"https://github.com/sindresorhus/editorconfig-sublime"
 	]
 }
