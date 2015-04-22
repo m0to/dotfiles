@@ -8,10 +8,11 @@
 	default = simple
 [core]
     excludesfile = ~/.gitignore
-    editor = vim
+    editor = subl
     pager = less -+$LESS -i -R
 [color]
-    ui = auto
+    ui = true
+    diff = true
 [alias]
     co = checkout
     st = status
