@@ -1,5 +1,5 @@
 eval "$(rbenv init -)"
-export PATH=./bin:$PATH
+export PATH=/usr/local/sbin:./bin:$PATH
 export EDITOR='subl -w'
 
 export CLICOLOR=1
@@ -40,9 +40,13 @@ alias start_mongo="mongod --config /usr/local/etc/mongod.conf"
 alias prod_beans="echo 'stats-tube profile_campaign_score' | nc -c 54.88.130.189 11300"
 
 # Server stuff
-alias start_mysql="mysql.server start"
-alias stop_mysql="mysql.server stop"
-alias start_postgres="postgres -D /usr/local/var/postgres"
+alias mysql.start="mysql.server start"
+alias mysql.stop="mysql.server stop"
+alias mysql.restart="mysql.stop && mysql.start"
+alias postgres.start="postgres -D /usr/local/var/postgres"
+alias nginx.start="sudo nginx"
+alias nginx.stop="sudo nginx -s stop"
+alias nginx.restart="nginx.stop && nginx.start"
 
 # Ruby Stuff
 alias resetdb='rake db:drop; rake db:create; rake db:migrate; rake db:seed'
