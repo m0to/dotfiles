@@ -50,3 +50,4 @@ alias nginx.restart="nginx.stop && nginx.start"
 
 # Ruby Stuff
 alias resetdb='rake db:drop; rake db:create; rake db:migrate; rake db:seed'
+alias be='bundle exec'
