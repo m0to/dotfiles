@@ -25,3 +25,24 @@ echo "Copied Sublime Configs"
 
 echo "Making alias for sublime"
 ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" "/usr/local/bin/subl"
+
+echo "Installing Homebrew"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+echo "Installing up Git"
+brew install git
+
+echo "Installing apple-gcc42"
+brew install apple-gcc42
+
+echo "Installing autoconf"
+brew install autoconf
+
+echo "Installing rbenv and ruby-build"
+brew install rbenv ruby-build
+
+echo "Installing PostGres"
+brew install postgresql
+
+echo "Installing MySQL"
+brew install mysql
