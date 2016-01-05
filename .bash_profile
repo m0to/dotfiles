@@ -49,5 +49,6 @@ alias nginx.stop="sudo nginx -s stop"
 alias nginx.restart="nginx.stop && nginx.start"
 
 # Ruby Stuff
-alias resetdb='rake db:drop; rake db:create; rake db:migrate; rake db:seed'
-alias be='bundle exec'
+alias resetdb="rake db:drop; rake db:create; rake db:migrate; rake db:seed"
+alias be="bundle exec"
+alias spring.stop="bin/spring stop"
