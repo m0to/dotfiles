@@ -46,3 +46,9 @@ brew install postgresql
 
 echo "Installing MySQL"
 brew install mysql
+
+echo "################################################"
+echo "Don't forget to set your git config"
+echo "git config --global user.name 'Your Name'"
+echo "git config --global user.email 'you@example.com'"
+echo "################################################"
