@@ -32,6 +32,10 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 echo "Installing up Git"
 brew install git
 
+echo "Installing bash prompt goodness"
+brew install bash-completion
+brew install bash-git-prompt
+
 echo "Installing apple-gcc42"
 brew install apple-gcc42
 

@@ -14,11 +14,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   source $(brew --prefix)/etc/bash_completion
 fi
 
-GIT_PS1_DESCRIBE_STYLE='describe'
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWCOLORHINTS=1
-
-export PS1='\u@local \e[33m\w\e[31m$(__git_ps1)\[\033[00m\]$ '
+if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+fi
 
 export EDITOR=/usr/local/bin/subl
 
