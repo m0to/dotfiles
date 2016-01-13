@@ -29,6 +29,9 @@ alias postgres.start="postgres -D /usr/local/var/postgres"
 alias nginx.start="sudo nginx"
 alias nginx.stop="sudo nginx -s stop"
 alias nginx.restart="nginx.stop && nginx.start"
+alias php.start="brew services start php56"
+alias php.stop="brew services stop php56"
+alias php.restart="brew services restart php56"
 alias redis.start="redis-server /usr/local/etc/redis.conf"
 
 # Ruby Stuff
