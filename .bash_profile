@@ -29,9 +29,10 @@ alias postgres.start="postgres -D /usr/local/var/postgres"
 alias nginx.start="sudo nginx"
 alias nginx.stop="sudo nginx -s stop"
 alias nginx.restart="nginx.stop && nginx.start"
+alias redis.start="redis-server /usr/local/etc/redis.conf"
 
 # Ruby Stuff
-alias resetdb="rake db:drop; rake db:create; rake db:migrate; rake db:seed"
+alias resetdb="be rake db:drop; be rake db:create; be rake db:migrate; be rake db:seed"
 alias be="bundle exec"
 alias spring.stop="bin/spring stop"
 
