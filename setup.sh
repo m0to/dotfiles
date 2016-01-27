@@ -21,6 +21,7 @@ echo "Copied .bash_profile"
 cp "$repo/.gitconfig" "$home/.gitconfig"
 echo "Copied .gitconfig"
 cp "$repo/sublime/Preferences.sublime-settings" "$home/Library/Application Support/Sublime Text 3/Packages/User"
+cp "$repo/sublime/Package\ Control.sublime-settings" "$home/Library/Application Support/Sublime Text 3/Packages/User"
 echo "Copied Sublime Configs"
 
 echo "Making alias for sublime"

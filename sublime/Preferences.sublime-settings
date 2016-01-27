@@ -1,12 +1,13 @@
 {
-	"color_scheme": "Packages/Theme - Flatland/Flatland Monokai.tmTheme",
+	"color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
-	"font_size": 12,
+	"font_size": 14,
 	"ignored_packages":
 	[
 		"Vintage"
 	],
 	"tab_size": 2,
+	"theme": "Brogrammer.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": false

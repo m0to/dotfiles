@@ -1,9 +1,11 @@
 {
+	"bootstrapped": true,
 	"in_process_packages":
 	[
 	],
 	"installed_packages":
 	[
+		"AngularJS",
 		"AngularJS (CoffeeScript)",
 		"BeautifyRuby",
 		"Better CoffeeScript",
@@ -11,12 +13,23 @@
 		"EditorConfig",
 		"Git",
 		"GitGutter",
+		"Numix Theme",
 		"Package Control",
 		"Pretty JSON",
+		"Ruby Slim",
 		"Sass",
+		"SideBarEnhancements",
 		"Simple Print Function",
+		"SublimeLinter",
 		"SublimeLinter-coffee",
-		"Theme - Flatland"
+		"SublimeLinter-coffeelint",
+		"SublimeLinter-contrib-scss-lint",
+		"SublimeLinter-jshint",
+		"SublimeLinter-slim-lint",
+		"Theme - Augmented Reaction",
+		"Theme - Brogrammer",
+		"Theme - Flatland",
+		"Theme - Tech49"
 	],
 	"repositories":
 	[
