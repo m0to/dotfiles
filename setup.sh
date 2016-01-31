@@ -38,7 +38,7 @@ brew install bash-completion
 brew install bash-git-prompt
 
 echo "Installing apple-gcc42"
-brew install apple-gcc42
+brew install homebrew/dupes/apple-gcc42
 
 echo "Installing autoconf"
 brew install autoconf
@@ -51,6 +51,12 @@ brew install postgresql
 
 echo "Installing MySQL"
 brew install mysql
+
+echo "Installing nginx & PHP"
+brew install nginx
+brew tap homebrew/dupes
+brew tap josegonzalez/homebrew-php
+brew install --without-apache --with-fpm --with-mysql php55
 
 echo "################################################"
 echo "Don't forget to set your git config"

@@ -1,14 +1,51 @@
 {
-	"color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
-	"ensure_newline_at_eof_on_save": true,
-	"font_size": 14,
+	"bootstrapped": true,
+	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
+	"itg_small_tabs": true,
 	"ignored_packages":
 	[
 		"Vintage"
 	],
-	"tab_size": 2,
-	"theme": "Brogrammer.sublime-theme",
-	"translate_tabs_to_spaces": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AngularJS",
+		"AngularJS (CoffeeScript)",
+		"BeautifyRuby",
+		"Better CoffeeScript",
+		"CoffeeCompile",
+		"EditorConfig",
+		"Git",
+		"GitGutter",
+		"Numix Theme",
+		"Package Control",
+		"Pretty JSON",
+		"Ruby Slim",
+		"Sass",
+		"SideBarEnhancements",
+		"Simple Print Function",
+		"SublimeLinter",
+		"SublimeLinter-coffee",
+		"SublimeLinter-coffeelint",
+		"SublimeLinter-contrib-scss-lint",
+		"SublimeLinter-jshint",
+		"SublimeLinter-slim-lint",
+		"Theme - Augmented Reaction",
+		"Theme - Brogrammer",
+		"Theme - Flatland",
+		"Theme - Tech49"
+	],
+	"repositories":
+	[
+		"https://github.com/sindresorhus/editorconfig-sublime"
+	],
+	"theme": "itg.flat.dark.sublime-theme",
 	"trim_trailing_white_space_on_save": true,
-	"word_wrap": false
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 14,
+	"highlight_line": true
 }

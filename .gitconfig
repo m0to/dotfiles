@@ -1,18 +1,33 @@
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+    clean = git-media-clean %f
+    smudge = git-media-smudge %f
 [user]
-	name = Jason Liebrecht
-	email = jason.liebrecht@gmail.com
+    name = Jason Liebrecht
+    email = jason.liebrecht@gmail.com
 [push]
-	default = simple
+    default = simple
 [core]
     excludesfile = ~/.gitignore
     editor = subl
     pager = less -+$LESS -i -R
 [color]
     ui = true
-    diff = true
+    branch = auto
+    diff = auto
+    status = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
 [alias]
     co = checkout
     st = status
