@@ -37,8 +37,9 @@ alias php.restart="brew services restart php56"
 alias redis.start="redis-server /usr/local/etc/redis.conf"
 
 # Ruby Stuff
-alias resetdb="be rake db:drop; be rake db:create; be rake db:migrate; be rake db:seed"
 alias be="bundle exec"
+alias reset.dev="be rake db:drop; be rake db:create; be rake db:migrate; be rake db:seed"
+alias reset.test="be rake db:schema:load RAILS_ENV=test"
 alias spring.stop="bin/spring stop"
 
 # PHP Stuff
