@@ -1,7 +1,11 @@
 {
 	"bootstrapped": true,
-	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
-	"itg_small_tabs": true,
+	"color_scheme": "Packages/User/SublimeLinter/itg.dark (SL).tmTheme",
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 14,
+	"highlight_line": true,
+	"itg_scrollbar_medium": true,
+	"draw_white_space": "all",
 	"ignored_packages":
 	[
 		"Vintage"
@@ -37,15 +41,14 @@
 		"Theme - Flatland",
 		"Theme - Tech49"
 	],
+	"itg_small_tabs": true,
+	"overlay_scroll_bars": "disabled",
 	"repositories":
 	[
 		"https://github.com/sindresorhus/editorconfig-sublime"
 	],
-	"theme": "itg.flat.dark.sublime-theme",
-	"trim_trailing_white_space_on_save": true,
 	"tab_size": 2,
+	"theme": "itg.flat.dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"ensure_newline_at_eof_on_save": true,
-	"font_size": 14,
-	"highlight_line": true
+	"trim_trailing_white_space_on_save": true
 }
