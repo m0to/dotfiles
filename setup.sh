@@ -27,7 +27,7 @@ cp "$repo/sublime/Package\ Control.sublime-settings" "$home/Library/Application 
 echo "Copied Sublime Configs"
 
 echo "Making alias for sublime"
-ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" "/usr/local/bin/subl"
+ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 
 echo "Installing Homebrew"
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
