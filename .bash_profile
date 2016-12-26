@@ -20,6 +20,9 @@ fi
 
 export EDITOR=/usr/local/bin/subl
 
+# Docker stuff
+alias docker.default="eval '$(docker-machine env default)'"
+
 # Server stuff
 alias mongo.start="mongod --config /usr/local/etc/mongod.conf"
 alias mysql.start="mysql.server start"
