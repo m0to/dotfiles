@@ -24,19 +24,20 @@ export EDITOR=/usr/local/bin/subl
 alias docker.default='eval "$(docker-machine env default)"'
 
 # Server stuff
-alias mongo.start="mongod --config /usr/local/etc/mongod.conf"
+alias mongo.start="brew services start mongodb"
+alias mongo.stop="brew services stop mongodb"
 alias mysql.start="mysql.server start"
 alias mysql.stop="mysql.server stop"
 alias mysql.restart="mysql.stop && mysql.start"
 alias postgres.start="postgres -D /usr/local/var/postgres"
-alias nginx.start="sudo nginx"
-alias nginx.stop="sudo nginx -s stop"
-alias nginx.restart="nginx.stop && nginx.start"
+alias nginx.start="sudo brew services start nginx"
+alias nginx.stop="sudo brew services stop nginx"
+alias nginx.restart="sudo brew services restart nginx"
 alias nginx.start.all="mysql.start && php.start && nginx.start"
 alias nginx.stop.all="nginx.stop && php.stop && mysql.stop"
-alias php.start="brew services start php56"
-alias php.stop="brew services stop php56"
-alias php.restart="brew services restart php56"
+alias php.start="sudo brew services start php70"
+alias php.stop="sudo brew services stop php70"
+alias php.restart="sudo brew services restart php70"
 alias redis.start="redis-server /usr/local/etc/redis.conf"
 
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
