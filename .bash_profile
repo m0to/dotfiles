@@ -23,6 +23,10 @@ export EDITOR=/usr/local/bin/subl
 # Docker stuff
 alias docker.default='eval "$(docker-machine env default)"'
 
+#Config Stuff
+alias config.nginx="cd /usr/local/etc/nginx/"
+alias config.hosts="subl /etc/hosts"
+
 # Server stuff
 alias mongo.start="brew services start mongodb"
 alias mongo.stop="brew services stop mongodb"
