@@ -1,57 +1,78 @@
-eval "$(rbenv init -)"
-export PATH=/usr/local/sbin:./bin:$PATH
-export EDITOR='subl -w'
+#!/bin/bash
 
-export HISTCONTROL=ignoredups
-export HISTCONTROL=ignoreboth
-
-alias ls='ls -G'
-alias ll='ls -hl'
-alias github="open \`git config -l | grep 'remote.origin.url' | sed -n 's/remote.origin.url=git@github.com:\(.*\)\/\(.*\).git/https:\/\/github.com\/\1\/\2/p'\`"
-
-
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  source $(brew --prefix)/etc/bash_completion
+if [ "$1" = "--help" -o "$1" = "help" -o "$1" = "--usage" ]; then
+  echo "Usage:"
+  echo "$0 [dotfiles_dir] [home_dir]"
+  exit
 fi
 
-if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+repo=$1
+if [ -z "$repo" ]; then
+  repo=`pwd`
 fi
 
-export EDITOR=/usr/local/bin/subl
+home=$2
+if [ -z "$home" ]; then
+  home=~
+fi
 
-# Docker stuff
-alias docker.default='eval "$(docker-machine env default)"'
+cp "$repo/.bash_profile" "$home/.bash_profile"
+echo "Copied .bash_profile"
+cp "$repo/.gitconfig" "$home/.gitconfig"
+echo "Copied .gitconfig"
+cp "$repo/.pryrc" "$home/.pryrc"
+echo "Copied .pryrc"
+cp "$repo/sublime/Preferences.sublime-settings" "$home/Library/Application Support/Sublime Text 3/Packages/User"
+cp "$repo/sublime/Package\ Control.sublime-settings" "$home/Library/Application Support/Sublime Text 3/Packages/User"
+echo "Copied Sublime Configs"
 
-#Config Stuff
-alias config.nginx="cd /usr/local/etc/nginx/"
-alias config.hosts="subl /etc/hosts"
+echo "Making alias for sublime"
+ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 
-# Server stuff
-alias mongo.start="brew services start mongodb"
-alias mongo.stop="brew services stop mongodb"
-alias mysql.start="mysql.server start"
-alias mysql.stop="mysql.server stop"
-alias mysql.restart="mysql.stop && mysql.start"
-alias postgres.start="brew services start postgres"
-alias postgres.stop="brew services stop postgres"
-alias nginx.start="sudo brew services start nginx"
-alias nginx.stop="sudo brew services stop nginx"
-alias nginx.restart="sudo brew services restart nginx"
-alias nginx.start.all="mysql.start && php.start && nginx.start"
-alias nginx.stop.all="nginx.stop && php.stop && mysql.stop"
-alias php.start="sudo brew services start php71"
-alias php.stop="sudo brew services stop php71"
-alias php.restart="sudo brew services restart php71"
-alias redis.start="redis-server /usr/local/etc/redis.conf"
+echo "Installing Homebrew"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
+echo "Installing up Git"
+brew install git
 
-# Ruby Stuff
-alias be="bundle exec"
-alias reload.dev="be rake db:drop; be rake db:create; be rake db:migrate; be rake db:seed"
-alias reload.test="be rake db:schema:load RAILS_ENV=test"
-alias spring.stop="bin/spring stop"
+echo "Installing bash prompt goodness"
+brew install bash-completion
+brew install bash-git-prompt
 
-# PHP Stuff
-PHP_AUTOCONF="/usr/local/bin/autoconf"
+echo "Installing apple-gcc42"
+brew install homebrew/dupes/apple-gcc42
+
+echo "Installing autoconf"
+brew install autoconf
+
+echo "Installing rbenv and ruby-build"
+brew install rbenv ruby-build
+
+echo "Installing PostGres"
+brew install postgresql
+
+echo "Installing MySQL"
+brew install mysql
+
+echo "Installing nginx & PHP"
+brew install nginx
+brew tap homebrew/dupes
+brew install php71 --without-apache --with-fpm --with-mysql
+brew install php71-mcrypt
+mkdir -p /usr/local/etc/nginx/sites-available
+mkdir -p /usr/local/etc/nginx/sites-enabled
+mkdir -p /usr/local/etc/nginx/conf.d
+mkdir -p /usr/local/etc/nginx/ssl
+mkdir -p /usr/local/etc/nginx/logs
+echo "Nginx: Copying config files"
+cp "$repo/nginx/conf.d/php-fpm" /usr/local/etc/nginx/conf.d/php-fpm
+cp "$repo/nginx/nginx.conf" /usr/local/etc/nginx/nginx.conf
+cp "$repo/nginx/site-available" /usr/local/etc/nginx/sites-available
+ln -s /usr/local/etc/nginx/sites-available/default /usr/local/etc/nginx/sites-enabled
+echo "Nginx: Config Files Copied"
+
+echo "################################################"
+echo "Don't forget to set your git config"
+echo "git config --global user.name 'Your Name'"
+echo "git config --global user.email 'you@example.com'"
+echo "################################################"
