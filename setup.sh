@@ -57,8 +57,19 @@ brew install mysql
 echo "Installing nginx & PHP"
 brew install nginx
 brew tap homebrew/dupes
-brew tap josegonzalez/homebrew-php
-brew install --without-apache --with-fpm --with-mysql php55
+brew install php71 --without-apache --with-fpm --with-mysql
+brew install php71-mcrypt
+mkdir -p /usr/local/etc/nginx/sites-available
+mkdir -p /usr/local/etc/nginx/sites-enabled
+mkdir -p /usr/local/etc/nginx/conf.d
+mkdir -p /usr/local/etc/nginx/ssl
+mkdir -p /usr/local/etc/nginx/logs
+echo "Nginx: Copying config files"
+cp "$repo/nginx/conf.d/php-fpm" /usr/local/etc/nginx/conf.d/php-fpm
+cp "$repo/nginx/nginx.conf" /usr/local/etc/nginx/nginx.conf
+cp "$repo/nginx/site-available" /usr/local/etc/nginx/sites-available
+ln -s /usr/local/etc/nginx/sites-available/default /usr/local/etc/nginx/sites-enabled
+echo "Nginx: Config Files Copied"
 
 echo "################################################"
 echo "Don't forget to set your git config"
