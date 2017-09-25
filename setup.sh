@@ -71,6 +71,11 @@ cp "$repo/nginx/site-available" /usr/local/etc/nginx/sites-available
 ln -s /usr/local/etc/nginx/sites-available/default /usr/local/etc/nginx/sites-enabled
 echo "Nginx: Config Files Copied"
 
+echo "Setting screenshot location"
+mkdir -p /Users/jasonliebrecht/Desktop/Screenshots
+defaults write com.apple.screencapture location /Users/jasonliebrecht/Desktop/Screenshots
+killall SystemUIServer
+
 echo "################################################"
 echo "Don't forget to set your git config"
 echo "git config --global user.name 'Your Name'"
