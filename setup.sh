@@ -57,8 +57,8 @@ brew install mysql
 echo "Installing nginx & PHP"
 brew install nginx
 brew tap homebrew/dupes
-brew install php71 --without-apache --with-fpm --with-mysql
-brew install php71-mcrypt
+brew install php70
+brew install php70-mcrypt
 mkdir -p /usr/local/etc/nginx/sites-available
 mkdir -p /usr/local/etc/nginx/sites-enabled
 mkdir -p /usr/local/etc/nginx/conf.d
@@ -71,6 +71,15 @@ cp "$repo/nginx/site-available" /usr/local/etc/nginx/sites-available
 ln -s /usr/local/etc/nginx/sites-available/default /usr/local/etc/nginx/sites-enabled
 echo "Nginx: Config Files Copied"
 
+echo "dnsmasq: Setting up local DNS"
+brew install dnsmasq
+cd $(brew --prefix); mkdir etc; echo 'address=/.dev/127.0.0.1' > etc/dnsmasq.conf
+sudo cp -v $(brew --prefix dnsmasq)/homebrew.mxcl.dnsmasq.plist /Library/LaunchDaemons
+sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+sudo mkdir /etc/resolver
+sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/dev'
+echo "dnsmasq: Setup and configured"
+
 echo "Setting screenshot location"
 mkdir -p /Users/jasonliebrecht/Desktop/Screenshots
 defaults write com.apple.screencapture location /Users/jasonliebrecht/Desktop/Screenshots
@@ -80,4 +89,7 @@ echo "################################################"
 echo "Don't forget to set your git config"
 echo "git config --global user.name 'Your Name'"
 echo "git config --global user.email 'you@example.com'"
+echo "================================================"
+echo "Set your PHP-FPM Config 'user' and 'group'"
+echo "/usr/local/etc/php/7.0/php-fpm.d/www.conf"
 echo "################################################"
