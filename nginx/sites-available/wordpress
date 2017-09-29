@@ -1,0 +1,24 @@
+# Example Wordpress Config
+server {
+    listen       80;
+    server_name  wordpress.dev;
+    root       /Users/jasonliebrecht/workspace/wordpress;
+
+    access_log  /usr/local/etc/nginx/logs/wordpress.access.log  main;
+    error_log   /usr/local/etc/nginx/logs/wordpress.error.log;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+        include   /usr/local/etc/nginx/conf.d/php-fpm;
+        include   /usr/local/etc/nginx/conf.d/wp-restrictions;
+    }
+
+    location = /info {
+        allow   127.0.0.1;
+        deny    all;
+        rewrite (.*) /.info.php;
+    }
+
+    error_page  404     /404.html;
+    error_page  403     /403.html;
+}
