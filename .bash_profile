@@ -58,3 +58,8 @@ alias spring.stop="bin/spring stop"
 
 # PHP Stuff
 PHP_AUTOCONF="/usr/local/bin/autoconf"
+
+export NVM_DIR="/Users/jasonliebrecht/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# Add Visual Studio Code (code)
+export PATH="/Users/jasonliebrecht/.nvm/versions/node/v7.2.0/bin:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
