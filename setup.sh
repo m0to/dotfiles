@@ -85,6 +85,11 @@ mkdir -p /Users/jasonliebrecht/Desktop/Screenshots
 defaults write com.apple.screencapture location /Users/jasonliebrecht/Desktop/Screenshots
 killall SystemUIServer
 
+echo "Securing & setting up databases"
+mysql_secure_installation
+echo "MySQL Setup"
+createdb `whoami`
+
 echo "################################################"
 echo "Don't forget to set your git config"
 echo "git config --global user.name 'Your Name'"
