@@ -37,6 +37,7 @@ alias postgres.start="brew services start postgres"
 alias postgres.stop="brew services stop postgres"
 alias nginx.start="sudo brew services start nginx"
 alias nginx.stop="sudo brew services stop nginx"
+alias nginx.test="sudo nginx -t"
 alias nginx.restart="sudo brew services restart nginx"
 alias nginx.start.all="mysql.start && php.start && nginx.start"
 alias nginx.stop.all="nginx.stop && php.stop && mysql.stop"
@@ -50,6 +51,12 @@ alias dnsmasq.restart="brew services restart dnsmasq"
 
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
 
+# Javascript/PM2
+alias pm2.staging.setup="pm2 deploy ecosystem.config.js staging setup"
+alias pm2.staging.update="pm2 deploy ecosystem.config.js staging update"
+alias pm2.production.setup="pm2 deploy ecosystem.config.js staging setup"
+alias pm2.production.update="pm2 deploy ecosystem.config.js production update"
+
 # Ruby Stuff
 alias be="bundle exec"
 alias reload.dev="be rake db:drop; be rake db:create; be rake db:migrate; be rake db:seed"
@@ -61,5 +68,7 @@ PHP_AUTOCONF="/usr/local/bin/autoconf"
 
 export NVM_DIR="/Users/jasonliebrecht/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-# Add Visual Studio Code (code)
+
 export PATH="/Users/jasonliebrecht/.nvm/versions/node/v7.2.0/bin:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
