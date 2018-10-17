@@ -1,6 +1,6 @@
 eval "$(rbenv init -)"
 export PATH=/usr/local/sbin:./bin:$PATH
-export EDITOR='subl -w'
+export EDITOR='code -w'
 
 export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth
@@ -18,14 +18,12 @@ if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
 fi
 
-export EDITOR=/usr/local/bin/subl
-
 # Docker stuff
 alias docker.default='eval "$(docker-machine env default)"'
 
 #Config Stuff
 alias config.nginx="cd /usr/local/etc/nginx/"
-alias config.hosts="subl /etc/hosts"
+alias config.hosts="code /etc/hosts"
 
 # Server stuff
 alias mongo.start="brew services start mongodb"
