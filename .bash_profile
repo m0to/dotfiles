@@ -54,7 +54,7 @@ alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; s
 # Javascript/PM2
 alias pm2.staging.setup="pm2 deploy ecosystem.config.js staging setup"
 alias pm2.staging.update="pm2 deploy ecosystem.config.js staging update"
-alias pm2.production.setup="pm2 deploy ecosystem.config.js staging setup"
+alias pm2.production.setup="pm2 deploy ecosystem.config.js production setup"
 alias pm2.production.update="pm2 deploy ecosystem.config.js production update"
 
 # Ruby Stuff
@@ -66,9 +66,10 @@ alias spring.stop="bin/spring stop"
 # PHP Stuff
 PHP_AUTOCONF="/usr/local/bin/autoconf"
 
+export PATH="/Users/jasonliebrecht/.nvm/versions/node/v7.2.0/bin:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/jasonliebrecht/workspace/flutter/bin"
+
 export NVM_DIR="/Users/jasonliebrecht/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-export PATH="/Users/jasonliebrecht/.nvm/versions/node/v7.2.0/bin:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
