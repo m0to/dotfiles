@@ -48,6 +48,9 @@ brew install autoconf
 echo "Installing rbenv and ruby-build"
 brew install rbenv ruby-build
 
+echo "Installing Node"
+brew install node
+
 echo "Installing PostGres"
 brew install postgresql
 
