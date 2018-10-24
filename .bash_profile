@@ -1,4 +1,3 @@
-eval "$(rbenv init -)"
 export PATH=/usr/local/sbin:./bin:$PATH
 export EDITOR='code -w'
 
@@ -46,6 +45,9 @@ alias redis.start="redis-server /usr/local/etc/redis.conf"
 alias dnsmasq.start="sudo brew services start dnsmasq"
 alias dnsmasq.stop="sudo brew services stop dnsmasq"
 alias dnsmasq.restart="brew services restart dnsmasq"
+alias redis.start="brew services start redis"
+alias redis.stop="brew services stop redis"
+alias redis.restart="brew services restart redis"
 
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
 
@@ -71,3 +73,4 @@ export NVM_DIR="/Users/jasonliebrecht/.nvm"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(rbenv init -)"

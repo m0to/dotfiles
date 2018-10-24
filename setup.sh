@@ -39,8 +39,8 @@ echo "Installing bash prompt goodness"
 brew install bash-completion
 brew install bash-git-prompt
 
-echo "Installing apple-gcc42"
-brew install homebrew/dupes/apple-gcc42
+echo "Installing apple-gcc"
+brew install gcc49
 
 echo "Installing autoconf"
 brew install autoconf
