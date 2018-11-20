@@ -16,8 +16,19 @@ if [ -z "$home" ]; then
   home=~
 fi
 
-cp "$repo/.bash_profile" "$home/.bash_profile"
-echo "Copied .bash_profile"
+echo "Installing zsh"
+brew install zsh zsh-completions
+sudo sh -c "echo $(which zsh) >> /etc/shells"
+chsh -s $(which zsh)
+git clone https://github.com/valentinocossar/vscode.git $ZSH_CUSTOM/plugins/vscode
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+brew tap caskroom/fonts
+brew cask install font-hack-nerd-font
+
+cp "$repo/.zshrc" "$home/.zshrc"
+
+
 cp "$repo/.gitconfig" "$home/.gitconfig"
 echo "Copied .gitconfig"
 cp "$repo/.pryrc" "$home/.pryrc"
@@ -34,10 +45,6 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 
 echo "Installing up Git"
 brew install git
-
-echo "Installing bash prompt goodness"
-brew install bash-completion
-brew install bash-git-prompt
 
 echo "Installing apple-gcc"
 brew install gcc49
@@ -94,6 +101,10 @@ echo "MySQL Setup"
 createdb `whoami`
 
 echo "################################################"
+echo "Add zsh to your allowed shells in `/etc/shells`"
+echo "Update to use zsh"
+echo "chsh -s $(which zsh)"
+echo "================================================"
 echo "Don't forget to set your git config"
 echo "git config --global user.name 'Your Name'"
 echo "git config --global user.email 'you@example.com'"

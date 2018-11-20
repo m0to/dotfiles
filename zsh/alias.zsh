@@ -1,21 +1,5 @@
-export PATH=/usr/local/sbin:./bin:$PATH
-export EDITOR='code -w'
-
-export HISTCONTROL=ignoredups
-export HISTCONTROL=ignoreboth
-
 alias ls='ls -G'
 alias ll='ls -hl'
-alias github="open \`git config -l | grep 'remote.origin.url' | sed -n 's/remote.origin.url=git@github.com:\(.*\)\/\(.*\).git/https:\/\/github.com\/\1\/\2/p'\`"
-
-
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  source $(brew --prefix)/etc/bash_completion
-fi
-
-if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-fi
 
 # Docker stuff
 alias docker.default='eval "$(docker-machine env default)"'
@@ -49,6 +33,14 @@ alias redis.start="brew services start redis"
 alias redis.stop="brew services stop redis"
 alias redis.restart="brew services restart redis"
 
+# Loomly Stuff
+alias ngrok.calendy="./ngrok http 3000 -subdomain=calendyjason"
+alias foreman.calendy="foreman start -f Procfile.dev"
+alias foreman.console="foreman run rails console"
+alias postgres96.start="brew services start postgresql@9.6"
+alias postgres96.stop="brew services stop postgresql@9.6"
+alias postgres96.restart="brew services restart postgresql@9.6"
+
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
 
 # Javascript/PM2
@@ -62,16 +54,3 @@ alias be="bundle exec"
 alias reload.dev="be rake db:drop; be rake db:create; be rake db:migrate; be rake db:seed"
 alias reload.test="be rake db:schema:load RAILS_ENV=test"
 alias spring.stop="bin/spring stop"
-
-# PHP Stuff
-PHP_AUTOCONF="/usr/local/bin/autoconf"
-
-export PATH="/Users/jasonliebrecht/.nvm/versions/node/v7.2.0/bin:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/jasonliebrecht/workspace/flutter/bin"
-
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-eval "$(rbenv init -)"
