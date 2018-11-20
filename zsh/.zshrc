@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH="/Users/jasonliebrecht/.nvm/versions/node/v7.2.0/bin:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/sbin:./bin:/Users/jasonliebrecht/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/jasonliebrecht/workspace/flutter/bin"
+export PATH=$HOME/bin:/usr/local/bin:$PATH:/Users/jasonliebrecht/.rbenv/shims
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jliebrecht/.oh-my-zsh"
@@ -101,3 +102,4 @@ source $ZSH/oh-my-zsh.sh
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+source $HOME/.zshenv
