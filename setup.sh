@@ -20,6 +20,7 @@ echo "Installing zsh"
 brew install zsh zsh-completions
 sudo sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
+git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 git clone https://github.com/valentinocossar/vscode.git $ZSH_CUSTOM/plugins/vscode
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
@@ -27,7 +28,6 @@ brew tap caskroom/fonts
 brew cask install font-hack-nerd-font
 
 cp "$repo/.zshrc" "$home/.zshrc"
-
 
 cp "$repo/.gitconfig" "$home/.gitconfig"
 echo "Copied .gitconfig"

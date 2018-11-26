@@ -66,6 +66,7 @@ ZSH_THEME="spaceship"
 plugins=(
   git
   vscode
+  zsh-nvm
 )
 
 source $ZSH/oh-my-zsh.sh
