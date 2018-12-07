@@ -27,7 +27,9 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 brew tap caskroom/fonts
 brew cask install font-hack-nerd-font
 
-cp "$repo/.zshrc" "$home/.zshrc"
+cp "$repo/zsh/.zshrc" "$home/.zshrc"
+cp "$repo/zsh/.zshenv" "$home/.zshenv"
+cp "$repo/zsh/alias.zsh" "$ZSH_CUSTOM/alias.zsh"
 
 cp "$repo/.gitconfig" "$home/.gitconfig"
 echo "Copied .gitconfig"
@@ -36,9 +38,6 @@ echo "Copied .pryrc"
 cp "$repo/.hyper.js" "$home/.hyper.js"
 cp "$repo/.hyperlayout" "$home/.hyperlayout"
 echo "Copied Hyper Terminal settings"
-
-echo "Making alias for sublime"
-ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 
 echo "Installing Homebrew"
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"

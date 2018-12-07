@@ -8,6 +8,9 @@ alias docker.default='eval "$(docker-machine env default)"'
 alias config.nginx="cd /usr/local/etc/nginx/"
 alias config.hosts="code /etc/hosts"
 
+# Shortcuts
+alias wp="cd ~/workplace"
+
 # Server stuff
 alias mongo.start="brew services start mongodb"
 alias mongo.stop="brew services stop mongodb"
@@ -52,5 +55,5 @@ alias pm2.production.update="pm2 deploy ecosystem.config.js production update"
 # Ruby Stuff
 alias be="bundle exec"
 alias reload.dev="be rake db:drop; be rake db:create; be rake db:migrate; be rake db:seed"
-alias reload.test="be rake db:schema:load RAILS_ENV=test"
+alias reload.test="be rake db:test:prepare"
 alias spring.stop="bin/spring stop"
