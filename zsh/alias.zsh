@@ -11,6 +11,9 @@ alias config.hosts="code /etc/hosts"
 # Shortcuts
 alias wp="cd ~/workplace"
 
+# Git Stuff
+alias gcleanup='git checkout master && comm -12 <(git branch | sed "s/ *//g") <(git remote prune origin | sed "s/^.*origin\///g") | xargs -L1 -J % git branch -D %'
+
 # Server stuff
 alias mongo.start="brew services start mongodb"
 alias mongo.stop="brew services stop mongodb"

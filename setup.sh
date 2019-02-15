@@ -22,8 +22,14 @@ sudo sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
 git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 git clone https://github.com/valentinocossar/vscode.git $ZSH_CUSTOM/plugins/vscode
+git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
+# Bind keys for history search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 brew tap caskroom/fonts
 brew cask install font-hack-nerd-font
 
@@ -88,11 +94,6 @@ sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
 sudo mkdir /etc/resolver
 sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/dev'
 echo "dnsmasq: Setup and configured"
-
-echo "Setting screenshot location"
-mkdir -p /Users/jasonliebrecht/Desktop/Screenshots
-defaults write com.apple.screencapture location /Users/jasonliebrecht/Desktop/Screenshots
-killall SystemUIServer
 
 echo "Securing & setting up databases"
 mysql_secure_installation
