@@ -8,7 +8,7 @@
     default = simple
 [core]
     excludesfile = ~/.gitignore
-    editor = subl
+    editor = code
     pager = less -+$LESS -i -R
 [color]
     ui = true

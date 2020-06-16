@@ -3,7 +3,7 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH:/Users/jasonliebrecht/.rbenv/shims
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jliebrecht/.oh-my-zsh"
+export ZSH="/Users/jasonliebrecht/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -122,4 +122,8 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.zshenv
+eval "$(rbenv init - zsh)"

@@ -39,13 +39,8 @@ alias redis.start="brew services start redis"
 alias redis.stop="brew services stop redis"
 alias redis.restart="brew services restart redis"
 
-# Loomly Stuff
-alias ngrok.calendy="./ngrok http 3000 -subdomain=calendyjason"
-alias foreman.calendy="foreman start -f Procfile.dev"
-alias foreman.console="foreman run rails console"
-alias postgres96.start="brew services start postgresql@9.6"
-alias postgres96.stop="brew services stop postgresql@9.6"
-alias postgres96.restart="brew services restart postgresql@9.6"
+# Activbody Stuff
+alias ngrok.activ5="./ngrok http 4000"
 
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
 

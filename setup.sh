@@ -16,15 +16,22 @@ if [ -z "$home" ]; then
   home=~
 fi
 
+echo "Installing Homebrew"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 echo "Installing zsh"
 brew install zsh zsh-completions
 sudo sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 git clone https://github.com/valentinocossar/vscode.git $ZSH_CUSTOM/plugins/vscode
 git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+brew install zsh-syntax-highlighting
+
+#need to reload the shell or something here
 
 # Bind keys for history search
 bindkey '^[[A' history-substring-search-up
@@ -44,9 +51,6 @@ echo "Copied .pryrc"
 cp "$repo/.hyper.js" "$home/.hyper.js"
 cp "$repo/.hyperlayout" "$home/.hyperlayout"
 echo "Copied Hyper Terminal settings"
-
-echo "Installing Homebrew"
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 echo "Installing up Git"
 brew install git
