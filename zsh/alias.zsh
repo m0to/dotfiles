@@ -8,6 +8,8 @@ alias docker.mongo.stop="docker stop mongo"
 alias docker.postgres.run="docker run -d --name postgres-dev -e POSTGRES_PASSWORD=Gr00vy1 -e PGDATA=/var/lib/postgresql/data/pgdata -v /tmp/postgres-data:/var/lib/postgresql/data -p 54320:5432 postgres"
 alias docker.postgres.restart="docker restart postgres-dev"
 alias docker.postgres.stop="docker stop postgres-dev"
+alias docker_clean_images='docker rmi $(docker images -a --filter=dangling=true -q)'
+alias docker_clean_ps='docker rm $(docker ps --filter=status=exited --filter=status=created -q)'
 
 #Config Stuff
 alias config.nginx="cd /usr/local/etc/nginx/"
