@@ -22,8 +22,9 @@ alias dl="cd ~/Downloads"
 # Git Stuff
 alias gcleanup='git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d'
 
-# Activbody Stuff
-alias ngrok.activ5="./ngrok http 4000"
+# Tools
+alias ngrok="./ngrok http 4000"
+alias wind=/Applications/Windsurf.app/Contents/MacOS/Electron
 
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
 
