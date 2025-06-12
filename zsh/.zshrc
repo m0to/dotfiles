@@ -9,7 +9,6 @@ export ZSH="/Users/jasonliebrecht/.oh-my-zsh"
 plugins=(
   git
   vscode
-  zsh-nvm
   history-substring-search
 )
 
