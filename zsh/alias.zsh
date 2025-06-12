@@ -22,8 +22,6 @@ alias ngrok.activ5="./ngrok http 4000"
 
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
 
-
-
 # Ruby Stuff
 alias be="bundle exec"
 alias reload.dev="be rake db:drop; be rake db:create; be rake db:migrate; be rake db:seed"

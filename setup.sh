@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 if [ "$1" = "--help" -o "$1" = "help" -o "$1" = "--usage" ]; then
   echo "Usage:"
@@ -17,18 +17,29 @@ if [ -z "$home" ]; then
 fi
 
 echo "Installing Homebrew"
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Add Homebrew to PATH if not already present
+if ! grep -q 'eval "$'"(/opt/homebrew/bin/brew shellenv)"'"' ~/.zprofile 2>/dev/null; then
+  echo 'eval "$'"(/opt/homebrew/bin/brew shellenv)"'"' >> ~/.zprofile
+fi
+eval "$('/opt/homebrew/bin/brew' shellenv)"
 brew update
 
 echo "Installing zsh"
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# when prompted to change default to zsh, enter y
+# enter sudo password again
 
-git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
+brew install jandedobbeleer/oh-my-posh/oh-my-posh
+
+# Ensure $ZSH_CUSTOM is set (Oh My Zsh sets this, but fallback if not)
+if [ -z "$ZSH_CUSTOM" ]; then
+  ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+fi
 git clone https://github.com/valentinocossar/vscode.git $ZSH_CUSTOM/plugins/vscode
 git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestionsgit
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
 brew install zsh zsh-completions
 brew install zsh-syntax-highlighting
@@ -39,18 +50,20 @@ bindkey '^[[B' history-substring-search-down
 
 # Setup fonts
 brew tap homebrew/cask-fonts
-brew cask install font-hack-nerd-font
-brew cask install font-fira-code
-brew cask install font-firamono-nerd-font-mono
+brew install --cask font-hack-nerd-font
+brew install --cask font-fira-code
+brew install --cask font-firamono-nerd-font-mono
 
 cp "$repo/zsh/.zshrc" "$home/.zshrc"
+# Ensure $ZSH_CUSTOM is set (Oh My Zsh sets this, but fallback if not)
+if [ -z "$ZSH_CUSTOM" ]; then
+  ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+fi
 cp "$repo/zsh/alias.zsh" "$ZSH_CUSTOM/alias.zsh"
 
 echo "Copy config files"
 cp "$repo/.gitconfig" "$home/.gitconfig"
 echo "Copied .gitconfig"
-cp "$repo/.pryrc" "$home/.pryrc"
-echo "Copied .pryrc"
 
 echo "Installing apple-gcc"
 brew install gcc49
@@ -58,15 +71,14 @@ brew install gcc49
 echo "Installing autoconf"
 brew install autoconf
 
-echo "Installing rbenv and ruby-build"
-brew install rbenv ruby-build
-
-echo "Installing NVM"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-
+echo "Installing ASDF"
+brew install asdf
 
 echo "================================================"
 echo "Don't forget to set your git config"
 echo "git config --global user.name 'Your Name'"
 echo "git config --global user.email 'you@example.com'"
 echo "================================================"
+echo ""
+echo "IMPORTANT: For Oh My Posh to display correctly, set your terminal font to one of the installed Nerd Fonts (e.g., Hack Nerd Font, Fira Code Nerd Font, or FiraMono Nerd Font) in your terminal's preferences."
+echo ""
