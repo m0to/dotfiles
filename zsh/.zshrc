@@ -10,6 +10,7 @@ plugins=(
   git
   vscode
   history-substring-search
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -49,7 +50,8 @@ autoload -U add-zsh-hook
 
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 
-source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# zsh-autosuggestions is now loaded via oh-my-zsh plugins
+# source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f $HOME/.zshenv ] && source $HOME/.zshenv
 
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
