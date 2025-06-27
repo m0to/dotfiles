@@ -50,9 +50,10 @@ autoload -U add-zsh-hook
 
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 
-# zsh-autosuggestions is now loaded via oh-my-zsh plugins
-# source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f $HOME/.zshenv ] && source $HOME/.zshenv
+
+# Initialize ASDF
+. $(brew --prefix asdf)/libexec/asdf.sh
 
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh)"
