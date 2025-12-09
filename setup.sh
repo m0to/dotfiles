@@ -59,9 +59,21 @@ brew_install() {
 brew_install_cask() {
   local cask=$1
   if brew list --cask "$cask" >/dev/null 2>&1; then
+    log "$cask already installed via Homebrew, skipping"
     return
   fi
+  # Try to install, but don't fail if the app is already installed manually
+  # Temporarily disable exit on error for this command
+  set +e
   brew install --cask "$cask"
+  local exit_code=$?
+  set -e
+
+  if [ $exit_code -eq 0 ]; then
+    log "$cask installed successfully"
+  else
+    log "Warning: Failed to install $cask (may already be installed manually)"
+  fi
 }
 
 log "Installing Oh My Zsh (unattended)"
