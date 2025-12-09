@@ -1,4 +1,5 @@
 #!/bin/zsh
+set -euo pipefail
 
 if [ "$1" = "--help" -o "$1" = "help" -o "$1" = "--usage" ]; then
   echo "Usage:"
@@ -6,73 +7,185 @@ if [ "$1" = "--help" -o "$1" = "help" -o "$1" = "--usage" ]; then
   exit
 fi
 
-repo=$1
-if [ -z "$repo" ]; then
-  repo=`pwd`
-fi
+repo=${1:-$(pwd)}
+home=${2:-$HOME}
 
-home=$2
-if [ -z "$home" ]; then
-  home=~
-fi
+log() {
+  echo "==> $*"
+}
 
-echo "Installing Homebrew"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ensure_brew() {
+  if command -v brew >/dev/null 2>&1; then
+    return
+  fi
+  log "Installing Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
+brew_prefix() {
+  command -v brew >/dev/null 2>&1 && brew --prefix
+}
+
+ensure_brew
+BREW_PREFIX=$(brew_prefix)
+
 # Add Homebrew to PATH if not already present
-if ! grep -q 'eval "$'"(/opt/homebrew/bin/brew shellenv)"'"' ~/.zprofile 2>/dev/null; then
-  echo 'eval "$'"(/opt/homebrew/bin/brew shellenv)"'"' >> ~/.zprofile
+if [ -n "${BREW_PREFIX:-}" ]; then
+  SHELLENV_CMD="eval \"\$(${BREW_PREFIX}/bin/brew shellenv)\""
+  if ! grep -q "$SHELLENV_CMD" "$home/.zprofile" 2>/dev/null; then
+    log "Adding Homebrew shellenv to ~/.zprofile"
+    echo "$SHELLENV_CMD" >> "$home/.zprofile"
+  fi
+  eval "$(${BREW_PREFIX}/bin/brew shellenv)"
+  brew update
 fi
-eval "$('/opt/homebrew/bin/brew' shellenv)"
-brew update
 
-echo "Installing zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# when prompted to change default to zsh, enter y
-# enter sudo password again
+brew_install() {
+  local pkg=$1
+  if brew list "$pkg" >/dev/null 2>&1; then
+    return
+  fi
+  brew install "$pkg"
+}
 
-brew install jandedobbeleer/oh-my-posh/oh-my-posh
+brew_install_cask() {
+  local cask=$1
+  if brew list --cask "$cask" >/dev/null 2>&1; then
+    return
+  fi
+  brew install --cask "$cask"
+}
+
+log "Installing Oh My Zsh (unattended)"
+if [ ! -d "$home/.oh-my-zsh" ]; then
+  RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  log "Oh My Zsh already installed, skipping"
+fi
+
+brew_install jandedobbeleer/oh-my-posh/oh-my-posh
 
 # Ensure $ZSH_CUSTOM is set (Oh My Zsh sets this, but fallback if not)
-if [ -z "$ZSH_CUSTOM" ]; then
-  ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+if [ -z "${ZSH_CUSTOM:-}" ]; then
+  ZSH_CUSTOM="$home/.oh-my-zsh/custom"
 fi
-git clone https://github.com/valentinocossar/vscode.git $ZSH_CUSTOM/plugins/vscode
-git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+mkdir -p "$ZSH_CUSTOM/plugins"
 
-brew install zsh zsh-completions
-brew install zsh-syntax-highlighting
+clone_or_update() {
+  local repo_url=$1
+  local dest=$2
+  if [ -d "$dest/.git" ]; then
+    git -C "$dest" pull --ff-only
+  elif [ -d "$dest" ]; then
+    log "Skipping $dest (exists and not a git repo)"
+  else
+    git clone "$repo_url" "$dest"
+  fi
+}
 
-# Bind keys for history search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+log "Installing zsh plugins"
+clone_or_update https://github.com/valentinocossar/vscode.git "$ZSH_CUSTOM/plugins/vscode"
+clone_or_update https://github.com/zsh-users/zsh-history-substring-search "$ZSH_CUSTOM/plugins/zsh-history-substring-search"
+clone_or_update https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+clone_or_update https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+clone_or_update https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
+
+brew_install zsh
 
 # Setup fonts
 brew tap homebrew/cask-fonts
-brew install --cask font-hack-nerd-font
-brew install --cask font-fira-code
-brew install --cask font-firamono-nerd-font-mono
+brew_install_cask font-hack-nerd-font
+brew_install_cask font-fira-code
+brew_install_cask font-firamono-nerd-font-mono
 
-cp "$repo/zsh/.zshrc" "$home/.zshrc"
-# Ensure $ZSH_CUSTOM is set (Oh My Zsh sets this, but fallback if not)
-if [ -z "$ZSH_CUSTOM" ]; then
-  ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+# Install CLI tools
+log "Installing CLI tools"
+brew_install git
+brew_install wget
+brew_install jq
+brew_install tree
+brew_install htop
+
+# Install applications
+log "Installing applications"
+brew_install_cask docker
+brew_install_cask visual-studio-code
+brew_install_cask iterm2
+
+# Configure iTerm2
+if [ -f "$repo/iterm2/iTerm2-State.itermexport" ]; then
+  log "Copying iTerm2 settings"
+  # iTerm2 will automatically import .itermexport files from this location
+  mkdir -p "$home/Library/Application Support/iTerm2/DynamicProfiles"
+  cp "$repo/iterm2/iTerm2-State.itermexport" "$home/Library/Application Support/iTerm2/"
 fi
-cp "$repo/zsh/alias.zsh" "$ZSH_CUSTOM/alias.zsh"
 
-echo "Copy config files"
-cp "$repo/.gitconfig" "$home/.gitconfig"
-echo "Copied .gitconfig"
+brew_install_cask rectangle
+brew_install_cask 1password
+brew_install_cask slack
 
-echo "Installing apple-gcc"
-brew install gcc49
+copy_with_backup() {
+  local src=$1
+  local dest=$2
+  mkdir -p "$(dirname "$dest")"
+  if [ -e "$dest" ] && ! cmp -s "$src" "$dest"; then
+    local ts
+    ts=$(date +%Y%m%d%H%M%S)
+    log "Backing up $dest to ${dest}.bak.${ts}"
+    cp "$dest" "${dest}.bak.${ts}"
+  fi
+  cp "$src" "$dest"
+}
 
-echo "Installing autoconf"
-brew install autoconf
+copy_with_backup "$repo/zsh/.zshrc" "$home/.zshrc"
+copy_with_backup "$repo/zsh/alias.zsh" "$ZSH_CUSTOM/alias.zsh"
 
-echo "Installing ASDF"
-brew install asdf
+# Ensure history search bindings persist
+if ! grep -q "history-substring-search-up" "$home/.zshrc" 2>/dev/null; then
+  cat <<'EOF' >> "$home/.zshrc"
+
+# History substring search bindings
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+EOF
+fi
+
+log "Copy config files"
+copy_with_backup "$repo/.gitconfig" "$home/.gitconfig"
+copy_with_backup "$repo/.tool-versions" "$home/.tool-versions"
+
+log "Installing compiler and tooling"
+brew_install gcc
+brew_install autoconf
+brew_install asdf
+
+# Source asdf for use in this script
+if [ -n "${BREW_PREFIX:-}" ]; then
+  . "${BREW_PREFIX}/opt/asdf/libexec/asdf.sh"
+fi
+
+asdf_plugin_add() {
+  local plugin=$1
+  if asdf plugin list | grep -q "^${plugin}$"; then
+    log "asdf plugin ${plugin} already installed"
+  else
+    log "Installing asdf plugin: ${plugin}"
+    asdf plugin add "$plugin"
+  fi
+}
+
+log "Installing asdf plugins"
+asdf_plugin_add nodejs
+asdf_plugin_add yarn
+asdf_plugin_add bun
+
+# Install versions from .tool-versions if it exists
+if [ -f "$repo/.tool-versions" ]; then
+  log "Installing tools from .tool-versions"
+  cd "$repo"
+  asdf install
+  cd - >/dev/null
+fi
 
 echo "================================================"
 echo "Don't forget to set your git config"

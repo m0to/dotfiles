@@ -1,0 +1,9 @@
+# Node.js LTS version (v24 - Krypton)
+nodejs 24.11.1
+
+# Yarn - latest stable
+yarn 1.22.22
+
+# Bun - latest stable
+bun 1.1.38
+
