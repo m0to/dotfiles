@@ -1,7 +1,7 @@
 #!/bin/zsh
 set -euo pipefail
 
-if [ "$1" = "--help" -o "$1" = "help" -o "$1" = "--usage" ]; then
+if [ "${1:-}" = "--help" -o "${1:-}" = "help" -o "${1:-}" = "--usage" ]; then
   echo "Usage:"
   echo "$0 [dotfiles_dir] [home_dir]"
   exit
