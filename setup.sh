@@ -20,6 +20,15 @@ ensure_brew() {
   fi
   log "Installing Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # After installation, add Homebrew to PATH immediately for this script
+  if [ -f "/opt/homebrew/bin/brew" ]; then
+    # Apple Silicon Mac
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -f "/usr/local/bin/brew" ]; then
+    # Intel Mac
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
 }
 
 brew_prefix() {
@@ -29,14 +38,13 @@ brew_prefix() {
 ensure_brew
 BREW_PREFIX=$(brew_prefix)
 
-# Add Homebrew to PATH if not already present
+# Add Homebrew to PATH in .zprofile for future sessions
 if [ -n "${BREW_PREFIX:-}" ]; then
   SHELLENV_CMD="eval \"\$(${BREW_PREFIX}/bin/brew shellenv)\""
   if ! grep -q "$SHELLENV_CMD" "$home/.zprofile" 2>/dev/null; then
     log "Adding Homebrew shellenv to ~/.zprofile"
     echo "$SHELLENV_CMD" >> "$home/.zprofile"
   fi
-  eval "$(${BREW_PREFIX}/bin/brew shellenv)"
   brew update
 fi
 
