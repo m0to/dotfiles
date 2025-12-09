@@ -101,10 +101,10 @@ clone_or_update https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugin
 brew_install zsh
 
 # Setup fonts
-brew tap homebrew/cask-fonts
+log "Installing fonts"
 brew_install_cask font-hack-nerd-font
 brew_install_cask font-fira-code
-brew_install_cask font-firamono-nerd-font-mono
+brew_install_cask font-fira-mono-nerd-font
 
 # Install CLI tools
 log "Installing CLI tools"
