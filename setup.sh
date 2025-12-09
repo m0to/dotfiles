@@ -177,6 +177,8 @@ copy_with_backup "$repo/.tool-versions" "$home/.tool-versions"
 log "Installing compiler and tooling"
 brew_install gcc
 brew_install autoconf
+brew_install gpg
+brew_install gnu-tar
 brew_install asdf
 
 # Source asdf for use in this script
