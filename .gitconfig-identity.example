@@ -1,0 +1,9 @@
+# Default git identity. Copied to ~/.gitconfig-identity by setup.sh (only if that
+# file doesn't already exist) and included by ~/.gitconfig. This file is the
+# committed template — put your REAL name/email in ~/.gitconfig-identity, which
+# is gitignored and never committed.
+[user]
+    name = Your Name
+    email = you@example.com
+[github]
+    username = your-github-handle

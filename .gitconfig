@@ -1,15 +1,28 @@
-[filter "media"]
-    clean = git-media-clean %f
-    smudge = git-media-smudge %f
-[user]
-    name = Jason Liebrecht
-    email = jason.liebrecht@gmail.com
+# Identity (name/email) is kept out of this public repo. setup.sh seeds these
+# local files from the .example templates; edit them with your real values:
+#   ~/.gitconfig-identity   default identity (see .gitconfig-identity.example)
+#   ~/.gitconfig-work        work identity for ~/workplace/radicle/ repos
+# Order matters: the unconditional include sets the default; the conditional one
+# overrides it inside work repos.
+[include]
+    path = ~/.gitconfig-identity
+[includeIf "gitdir:~/workplace/radicle/"]
+    path = ~/.gitconfig-work
+[init]
+    defaultBranch = main
 [push]
     default = simple
+[pull]
+    ff = only
 [core]
     excludesfile = ~/.gitignore
     editor = code
-    pager = less -+$LESS -i -R
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    line-numbers = true
 [color]
     ui = true
     branch = auto
@@ -33,15 +46,15 @@
     st = status
     br = branch
     ci = commit
-    m = checkout master
+    m = checkout main
     sign = commit --amend -sC HEAD
     amend = commit --amend -C HEAD
     l = log --graph --date=short --pretty='format:%C(green)%ad %C(yellow)%h%Creset %C(cyan)%aN%Creset %s%C(magenta bold)%d%Creset'
     ll = log --decorate=short --name-status -M
     lme = log --author=Jason --decorate=short --name-status -M
-    p = format-patch master
+    p = format-patch main
     trash-clean = !git ls-files --others --exclude-standard -z | xargs -0 trash-put
-    rebased-branch-delete = !sh -c 'git cherry master $1 | grep -v "^-" > /dev/null && $( git br -d "$1" || exit 0 )  || git br -D "$1"' -
+    rebased-branch-delete = !sh -c 'git cherry main $1 | grep -v "^-" > /dev/null && $( git br -d "$1" || exit 0 )  || git br -D "$1"' -
     brd = !git delete-merged-branches
     bb = bisect bad
     bg = bisect good
@@ -53,17 +66,21 @@
     wordRegex = (@@?|\\b:|[^:]:)?[[:alnum:]_]+|:\"[^\"]+\"|::|[^[:space:]]
 [diff "php"]
     wordRegex = \\${0,2}[[:alnum:]_]+|::|->|[^[:space:]]
-[push]
-  default = upstream
 [merge]
-    tool = gvimdiff
-  conflictstyle = diff3
+    tool = vscode
+    conflictstyle = zdiff3
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+[mergetool]
+    keepBackup = false
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
 [gc]
     auto = 0
 [clean]
     requireForce = false
-[github]
-  username = m0to
 [help]
   autocorrect = 1
 [rerere]
