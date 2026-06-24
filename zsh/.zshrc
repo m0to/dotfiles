@@ -25,15 +25,32 @@ source $ZSH/oh-my-zsh.sh
 # Preferred editor for local and remote sessions
 export EDITOR='code -w'
 
-# place this after nvm initialization!
 autoload -U add-zsh-hook
 
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
-
-[ -f "$HOME/.zshenv" ] && source "$HOME/.zshenv"
-
 # Initialize ASDF
-. "$(brew --prefix asdf)/libexec/asdf.sh"
+# Use $HOMEBREW_PREFIX (set by `brew shellenv` in ~/.zprofile) instead of
+# `brew --prefix`, which forks brew on every shell start.
+: "${HOMEBREW_PREFIX:=/opt/homebrew}"
+[ -f "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh" ] && . "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
+
+# fzf key bindings and fuzzy completion
+command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
+
+# direnv (per-project environment variables)
+command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+
+# React Native / Android development
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+if [ -d "$ANDROID_HOME" ]; then
+  export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin"
+fi
+# JDK 17 for Android/Gradle builds (only export if a JDK 17 is actually present)
+_java17="$(/usr/libexec/java_home -v 17 2>/dev/null)"
+[ -n "$_java17" ] && export JAVA_HOME="$_java17"
+unset _java17
+
+# trash-cli is keg-only; put trash-put on PATH for the `trash-clean` git alias
+[ -d "$HOMEBREW_PREFIX/opt/trash-cli/bin" ] && export PATH="$HOMEBREW_PREFIX/opt/trash-cli/bin:$PATH"
 
 # Initialize Oh My Posh (skip in Apple Terminal for compatibility)
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
@@ -41,3 +58,7 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   # eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.json)"
   eval "$(oh-my-posh init zsh)"
 fi
+
+# History substring search bindings (provided by the history-substring-search plugin)
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down

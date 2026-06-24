@@ -1,1 +1,5 @@
 .DS_Store
+
+# Local git identity — never commit real name/email (templates: *.example)
+.gitconfig-identity
+.gitconfig-work

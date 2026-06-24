@@ -1,0 +1,7 @@
+# Work git identity, included by ~/.gitconfig for repos under ~/workplace/radicle/.
+# Copied to ~/.gitconfig-work by setup.sh (only if that file doesn't already
+# exist). Put your REAL work name/email in ~/.gitconfig-work, which is gitignored
+# and never committed.
+[user]
+    name = Your Name
+    email = you@company.com
